@@ -1,0 +1,66 @@
+<!-- FOOTER -->
+<footer class="bg-gray-900 dark:bg-black" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <div class="space-y-8">
+        <img src="/Logo_blau.png" alt="Rabuks Logo" class="h-14 w-auto dark:hidden">
+        <img src="/Logo_weiß.png" alt="Rabuks Logo" class="h-14 w-auto hidden dark:block">
+        <p class="text-sm leading-6 text-gray-400">
+          Professionelle Software für Raumbuchverwaltung und Kalkulation in der Gebäudereinigung.
+        </p>
+      </div>
+      <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm font-semibold leading-6 text-white">Produkt</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li>
+                <a (click)="scrollToSection('features')" class="text-sm leading-6 text-gray-400 hover:text-white cursor-pointer">
+                  Funktionen
+                </a>
+              </li>
+              <li>
+                <a (click)="scrollToSection('pricing')" class="text-sm leading-6 text-gray-400 hover:text-white cursor-pointer">
+                  Preise
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-sm font-semibold leading-6 text-white">Support</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li>
+                <a (click)="scrollToSection('contact')" class="text-sm leading-6 text-gray-400 hover:text-white cursor-pointer">
+                  Kontakt
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm font-semibold leading-6 text-white">Rechtliches</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li>
+                <a routerLink="/impressum" class="text-sm leading-6 text-gray-400 hover:text-white">
+                  Impressum
+                </a>
+              </li>
+              <li>
+                <a routerLink="/datenschutz" class="text-sm leading-6 text-gray-400 hover:text-white">
+                  Datenschutz
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 border-t border-gray-800 pt-8 sm:mt-20 lg:mt-24">
+      <p class="text-xs leading-5 text-gray-400 text-center">
+        &copy; {{ currentYear }} Rabuks. Alle Rechte vorbehalten.
+      </p>
+    </div>
+  </div>
+</footer>

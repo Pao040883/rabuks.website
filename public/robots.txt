@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /*.json$
+Disallow: /*.map$
+
+# Sitemaps
+Sitemap: https://rabuks.online/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 0
