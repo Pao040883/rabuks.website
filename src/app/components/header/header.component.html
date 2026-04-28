@@ -4,28 +4,50 @@
     <div class="flex h-16 items-center justify-between">
       
       <!-- Logo -->
-      <div class="flex items-center gap-2 cursor-pointer" (click)="scrollToTop()">
+      <a
+        routerLink="/"
+        (click)="closeMenu()"
+        class="flex items-center gap-2"
+        aria-label="Zur Startseite"
+      >
         <img src="/Logo_blau.png" alt="Rabuks Logo" class="h-14 w-auto dark:hidden">
         <img src="/Logo_weiß.png" alt="Rabuks Logo" class="h-14 w-auto hidden dark:block">
-      </div>
+      </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-6">
-        <a (click)="scrollToSection('features')" 
-           class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer">
+      <nav class="hidden md:flex items-center gap-6" aria-label="Hauptnavigation">
+        <button
+          type="button"
+          (click)="scrollToSection('features')"
+          class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+        >
           Funktionen
-        </a>
-        <a (click)="scrollToSection('pricing')" 
-           class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer">
+        </button>
+        <button
+          type="button"
+          (click)="scrollToSection('screenshots')"
+          class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+        >
+          Einblicke
+        </button>
+        <button
+          type="button"
+          (click)="scrollToSection('pricing')"
+          class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+        >
           Preise
-        </a>
-        <a (click)="scrollToSection('contact')" 
-           class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer">
+        </button>
+        <button
+          type="button"
+          (click)="scrollToSection('contact')"
+          class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+        >
           Kontakt
-        </a>
+        </button>
         
         <!-- Theme Toggle -->
         <button
+          type="button"
           (click)="themeService.toggleTheme()"
           class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           [attr.aria-label]="themeService.theme() === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln'"
@@ -44,53 +66,86 @@
 
       <!-- Mobile Menu Button -->
       <button 
+        #mobileMenuTrigger
+        type="button"
         (click)="toggleMenu()"
-        class="md:hidden p-2 text-gray-600 dark:text-gray-300">
-        <svg *ngIf="!menuOpen()" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-        <svg *ngIf="menuOpen()" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+        class="md:hidden p-2 text-gray-600 dark:text-gray-300"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-controls]="mobileMenuId"
+        [attr.aria-label]="menuOpen() ? 'Navigationsmenü schließen' : 'Navigationsmenü öffnen'"
+      >
+        @if (!menuOpen()) {
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        } @else {
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        }
       </button>
     </div>
   </div>
 
   <!-- Mobile Menu -->
-  <div *ngIf="menuOpen()" class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-    <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-      <nav class="flex flex-col gap-1">
-        <a (click)="scrollToSection('features'); closeMenu()" 
-           class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
-          Funktionen
-        </a>
-        <a (click)="scrollToSection('pricing'); closeMenu()" 
-           class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
-          Preise
-        </a>
-        <a (click)="scrollToSection('contact'); closeMenu()" 
-           class="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
-          Kontakt
-        </a>
+  @if (menuOpen()) {
+    <div
+      id="primary-mobile-navigation"
+      class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+      (keydown.escape)="closeMenuOnEscape()"
+    >
+      <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+        <nav class="flex flex-col gap-1" aria-label="Mobile Hauptnavigation">
+          <button
+            #firstMobileMenuAction
+            type="button"
+            (click)="scrollToSection('features')"
+            class="rounded-lg px-3 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+          >
+            Funktionen
+          </button>
+          <button
+            type="button"
+            (click)="scrollToSection('screenshots')"
+            class="rounded-lg px-3 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+          >
+            Einblicke
+          </button>
+          <button
+            type="button"
+            (click)="scrollToSection('pricing')"
+            class="rounded-lg px-3 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+          >
+            Preise
+          </button>
+          <button
+            type="button"
+            (click)="scrollToSection('contact')"
+            class="rounded-lg px-3 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+          >
+            Kontakt
+          </button>
         
-        <!-- Mobile Theme Toggle -->
-        <button
-          (click)="themeService.toggleTheme()"
-          class="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-2 mt-3"
-        >
-          @if (themeService.theme() === 'dark') {
-            <svg class="w-5 h-5 fill-primary-500" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
-            </svg>
-            Hell
-          } @else {
-            <svg class="w-5 h-5 fill-gray-900" viewBox="0 0 20 20">
-              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-            </svg>
-            Dunkel
-          }
-        </button>
-      </nav>
+          <!-- Mobile Theme Toggle -->
+          <button
+            type="button"
+            (click)="themeService.toggleTheme()"
+            class="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-2 mt-3"
+          >
+            @if (themeService.theme() === 'dark') {
+              <svg class="w-5 h-5 fill-primary-500" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+              </svg>
+              Hell
+            } @else {
+              <svg class="w-5 h-5 fill-gray-900" viewBox="0 0 20 20">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+              </svg>
+              Dunkel
+            }
+          </button>
+        </nav>
+      </div>
     </div>
-  </div>
+  }
 </header>

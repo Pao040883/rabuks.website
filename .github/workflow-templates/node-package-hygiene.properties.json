@@ -1,0 +1,5 @@
+{
+  "name": "Node package hygiene",
+  "description": "Optional workflow template for npm dependency auditing in adopting repositories.",
+  "iconName": "nodejs"
+}

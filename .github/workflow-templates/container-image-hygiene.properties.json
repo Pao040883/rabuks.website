@@ -1,0 +1,5 @@
+{
+  "name": "Container image hygiene",
+  "description": "Optional workflow template for image vulnerability scanning in adopting repositories.",
+  "iconName": "docker"
+}

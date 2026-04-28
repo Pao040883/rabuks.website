@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { CookieConsentService } from '../../services/cookie-consent.service';
 
 @Component({
   selector: 'app-footer',
@@ -10,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class FooterComponent {
   private router = inject(Router);
+  protected cookieConsentService = inject(CookieConsentService);
   currentYear = new Date().getFullYear();
 
   scrollToSection(sectionId: string) {
@@ -31,5 +33,13 @@ export class FooterComponent {
         }, 100);
       });
     }
+  }
+
+  protected openCookieSettings(): void {
+    this.cookieConsentService.reopenBanner();
+  }
+
+  protected withdrawAnalyticsConsent(): void {
+    this.cookieConsentService.withdrawAnalyticsConsent();
   }
 }

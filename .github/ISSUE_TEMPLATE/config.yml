@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Requirements discovery
+    url: https://example.invalid/use-requirements-discovery
+    about: Use the requirements-discovery prompt or template workflow before filing broad solution requests.
+  - name: Release readiness
+    url: https://example.invalid/use-release-readiness
+    about: Use the release-readiness workflow for deployment or handoff questions.

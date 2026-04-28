@@ -47,6 +47,14 @@ import { FooterComponent } from '../../components/footer/footer.component';
           </section>
 
           <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Konzeption & Entwicklung</h2>
+            <p class="text-gray-700 dark:text-gray-300">
+              Rabuks ist ein Produkt von Patrick Offermanns.<br/>
+              Weitere Projekte: <a href="https://offermanns.dev" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 hover:underline">offermanns.dev</a>
+            </p>
+          </section>
+
+          <section class="mb-8">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
             <p class="text-gray-700 dark:text-gray-300">
               Patrick Offermanns<br/>

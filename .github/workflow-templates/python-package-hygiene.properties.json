@@ -1,0 +1,5 @@
+{
+  "name": "Python package hygiene",
+  "description": "Optional workflow template for Python dependency auditing in adopting repositories.",
+  "iconName": "python"
+}

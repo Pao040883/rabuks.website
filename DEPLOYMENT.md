@@ -1,136 +1,58 @@
-# Rabuks Website - Deployment Checkliste
+# Rabuks Website - Deployment
 
-## ✅ Rechtliche Absicherung
+## Aktueller Stand
 
-### DSGVO-Konformität
-- ✅ **Impressum** vorhanden mit vollständigen Angaben (Patrick Offermanns, Norderstedt)
-- ✅ **Datenschutzerklärung** vollständig mit allen Punkten:
-  - Datenerfassung und Verarbeitung
-  - Google Analytics Hinweis
-  - Cookie-Hinweise
-  - Betroffenenrechte (Auskunft, Löschung, etc.)
-  - Widerrufsrecht
-- ✅ **Cookie-Banner** mit:
-  - DSGVO-konformer Einwilligung
-  - "Ablehnen" und "Akzeptieren" Buttons
-  - Link zur Datenschutzerklärung
-  - Google Analytics wird erst nach Zustimmung aktiviert (Consent Mode)
-- ✅ **Footer-Links** zu Impressum und Datenschutz auf jeder Seite
+Diese Website ist keine reine Static-Site-Deployment mehr. Das Frontend sendet das Kontaktformular per POST an `/contact.php`. Ein produktiver Upload ist daher nur funktionsfähig, wenn der Host neben den Angular-Build-Dateien auch PHP ausführt und E-Mails zustellen kann.
 
-### Google Analytics
-- ✅ Google Analytics 4 implementiert (G-EMVJ6PZZBX)
-- ✅ Consent Mode aktiviert (Analytics deaktiviert bis Nutzer zustimmt)
-- ✅ In Datenschutzerklärung dokumentiert
+Diese Datei beschreibt den technischen Stand im Repository. Sie ist keine Aussage, dass der Live-Betrieb rechtlich vollständig geprüft oder ohne weitere Hosting-Konfiguration sofort produktionsreif ist.
 
-## ✅ Technische Vollständigkeit
+## Laufzeit-Anforderungen
 
-### Angular 21 Best Practices
-- ✅ Alle Komponenten nutzen neue Control Flow Syntax:
-  - `@for` statt `*ngFor`
-  - `@if` statt `*ngIf`
-  - `@switch/@case` statt `*ngSwitch`
-- ✅ Standalone Components (keine NgModules)
-- ✅ Signals verwendet
-- ✅ `inject()` statt constructor DI
-- ✅ TypeScript strict mode
+- Angular-Build aus `dist/website/browser/` ausliefern.
+- `/contact.php` unter derselben Domain wie die Website bereitstellen.
+- PHP muss `mail()` erfolgreich zustellen können, sonst schlägt das Kontaktformular serverseitig fehl.
+- Wenn Apache verwendet wird, ist die mitgebaute `.htaccess` für SPA-Routing, HTTPS-Redirect, Caching und Basis-Header vorgesehen.
+- Google Analytics bleibt bis zur Einwilligung deaktiviert und wird erst nach Consent aktiviert.
 
-### SEO & Performance
-- ✅ **robots.txt** vorhanden
-- ✅ **sitemap.xml** erstellt mit allen Hauptseiten
-- ✅ **Meta-Tags** in index.html:
-  - Title: "Rabuks - Raumbuch & Kalkulation für die Gebäudereinigung"
-  - Description und Keywords gesetzt
-- ✅ **.htaccess** mit:
-  - SPA Routing (alle Requests → index.html)
-  - HTTPS Redirect
-  - Browser-Caching optimiert
-  - Gzip-Kompression
-  - Security Headers
+## Consent-UI
 
-### Funktionalität
-- ✅ Dark/Light Mode mit Theme Service
-- ✅ Cookie-Banner auf Home-Page integriert
-- ✅ Responsive Design (Mobile, Tablet, Desktop)
-- ✅ Kontaktformular bereit
-- ✅ Preisrechner funktionsfähig
-- ✅ Smooth Scrolling zu Sektionen
+- Der Cookie-Banner wird global eingeblendet, bis eine Entscheidung in `localStorage` gespeichert ist.
+- Es gibt zwei Optionen: nur notwendige Cookies oder Analytics akzeptieren.
+- Der Banner verlinkt auf die Datenschutzerklärung.
+- Im Footer können Besucher die Cookie-Einstellungen erneut öffnen; bei erteilter Analytics-Einwilligung ist dort zusätzlich ein Widerruf verfügbar.
 
-## 📝 Vor dem Hochladen
+## Deployment-Schritte
 
 ### 1. Build erstellen
+
 ```bash
-cd website
-ng build --configuration production
+npm install
+npm run build
 ```
 
-### 2. Build-Output prüfen
-Der fertige Build liegt in: `dist/website/browser/`
+### 2. Artefakte bereitstellen
 
-### 3. Auf Server hochladen
-Folgende Dateien/Ordner hochladen:
-```
-dist/website/browser/
-├── index.html
-├── favicon.ico
-├── Logo_blau.png
-├── Logo_weiß.png
-├── .htaccess
-├── robots.txt
-├── sitemap.xml
-├── contact.php (optional, falls Backend-Kontaktformular gewünscht)
-└── [alle anderen generierten Dateien]
-```
+Den Inhalt von `dist/website/browser/` auf den Webspace hochladen. Durch die Asset-Konfiguration werden dabei auch Dateien aus `public/` mit ausgeliefert, einschließlich `.htaccess`, `robots.txt`, `sitemap.xml` und `contact.php`.
 
-### 4. Server-Anforderungen
-- Apache Webserver mit mod_rewrite aktiviert
-- PHP (falls contact.php genutzt wird)
-- SSL-Zertifikat (HTTPS) - .htaccess leitet automatisch um
+### 3. Hosting prüfen
 
-## ⚠️ Wichtige Hinweise
+- PHP-Ausführung für `/contact.php`
+- ausgehende Mail-Zustellung auf dem Server
+- HTTPS auf der Ziel-Domain
+- Apache `mod_rewrite`, falls die mitgelieferte `.htaccess` unverändert genutzt wird
 
-### Google Analytics
-- Google Analytics ID ist gesetzt: **G-EMVJ6PZZBX**
-- Analytics wird erst nach Cookie-Zustimmung aktiv
-- In Google Analytics Console: Website als Property hinzufügen
+## Smoke-Test nach dem Upload
 
-### Kontaktformular
-Zwei Optionen:
-1. **Backend (contact.php)**: Server muss PHP unterstützen und mail() Funktion aktiviert haben
-2. **Web3Forms** (Alternative): Service wie in Datenschutzerklärung erwähnt
-   - Kostenloses Kontaktformular-Backend
-   - Keine PHP-Installation nötig
-   - Formulardaten werden per E-Mail zugestellt
+- Startseite und Unterseiten laden
+- Kontaktformular erfolgreich absenden
+- Fehlerfall des Kontaktformulars prüfen, wenn Mailversand nicht verfügbar ist
+- Cookie-Banner erscheint beim ersten Besuch
+- "Nur notwendige Cookies" unterdrückt Analytics
+- "Akzeptieren" aktiviert Analytics
+- Footer-Aktion für Cookie-Einstellungen und Analytics-Widerruf funktioniert
 
-### Nach dem Upload testen
-- [ ] Website aufrufen: https://rabuks.online
-- [ ] Dark/Light Mode wechseln
-- [ ] Cookie-Banner erscheint und funktioniert
-- [ ] Impressum und Datenschutz aufrufbar
-- [ ] Kontaktformular testen
-- [ ] Preisrechner durchklicken
-- [ ] Auf Mobile-Ansicht prüfen
-- [ ] Google Analytics Test (in Google Analytics Console prüfen ob Daten ankommen)
+## Hinweise
 
-## 🔒 Rechtssicherheit
-
-### Was ist abgedeckt:
-✅ Impressumspflicht (§ 5 TMG)
-✅ Datenschutz (DSGVO Art. 13)
-✅ Cookie-Einwilligung (ePrivacy-Richtlinie)
-✅ Widerrufsrecht dokumentiert
-✅ Verantwortliche Stelle benannt
-✅ EU-Streitschlichtung erwähnt
-
-### Optional zu beachten:
-- Falls Newsletter: Dokumentation des Double-Opt-In
-- Falls Zahlungen: Widerrufsbelehrung für Verbraucher
-- Falls B2C-Verkauf: AGB notwendig
-
-**Aktuell verkaufst du aber nichts direkt auf der Website** (nur Angebotserstellung), daher sind AGB nicht zwingend erforderlich.
-
-## 🚀 Status
-
-**Die Website ist BEREIT zum Hochladen!**
-
-Alle rechtlichen und technischen Anforderungen sind erfüllt.
-Letzte Prüfung: 1. Februar 2026
+- `contact.php` akzeptiert nur POST-Anfragen, prüft Same-Origin, validiert Eingaben, nutzt ein Honeypot-Feld und begrenzt Anfragen pro IP.
+- Wenn PHP oder Mail-Zustellung auf dem Zielsystem fehlen, ist das Kontaktformular im Live-Betrieb nicht funktionsfähig.
+- Rechtliche Aussagen sollten vor dem Go-Live separat fachlich geprüft werden; das Repository allein belegt keine vollständige Compliance.

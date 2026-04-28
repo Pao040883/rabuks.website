@@ -1,0 +1,23 @@
+name: Container Image Hygiene
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  container-security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t local/scan-target:latest .
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: local/scan-target:latest
+          format: table
+          exit-code: '1'
+          severity: HIGH,CRITICAL

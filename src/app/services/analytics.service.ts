@@ -3,8 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 
 declare global {
   interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
   }
 }
 
@@ -13,7 +13,7 @@ declare global {
 })
 export class AnalyticsService {
   private platformId = inject(PLATFORM_ID);
-  private readonly GA_MEASUREMENT_ID = 'G-EMVJ6PZZBX';
+  private readonly GA_MEASUREMENT_ID = 'G-YPZPH8NSB8';
   private isInitialized = false;
 
   initializeAnalytics(): void {
@@ -43,7 +43,7 @@ export class AnalyticsService {
 
   grantConsent(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
     if (window.gtag) {
       window.gtag('consent', 'update', {
         'analytics_storage': 'granted'
@@ -51,9 +51,21 @@ export class AnalyticsService {
     }
   }
 
-  trackEvent(eventName: string, eventParams?: Record<string, any>): void {
+  revokeConsent(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
+    if (window.gtag) {
+      window.gtag('consent', 'update', {
+        'analytics_storage': 'denied'
+      });
+    }
+
+    this.clearAnalyticsCookies();
+  }
+
+  trackEvent(eventName: string, eventParams?: Record<string, unknown>): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     if (window.gtag) {
       window.gtag('event', eventName, eventParams);
     }
@@ -61,11 +73,33 @@ export class AnalyticsService {
 
   trackPageView(url: string): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
     if (window.gtag) {
       window.gtag('config', this.GA_MEASUREMENT_ID, {
         page_path: url
       });
+    }
+  }
+
+  private clearAnalyticsCookies(): void {
+    const analyticsCookiePrefixes = ['_ga', '_gid', '_gat', '_ga_'];
+    const cookieNames = document.cookie
+      .split(';')
+      .map((cookie) => cookie.trim().split('=')[0])
+      .filter((name) => analyticsCookiePrefixes.some((prefix) => name.startsWith(prefix)));
+
+    if (!cookieNames.length) {
+      return;
+    }
+
+    const hostname = window.location.hostname;
+    const domains = hostname.includes('.') ? [hostname, `.${hostname}`] : [hostname];
+
+    for (const cookieName of cookieNames) {
+      document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;SameSite=Lax`;
+      for (const domain of domains) {
+        document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${domain};SameSite=Lax`;
+      }
     }
   }
 }

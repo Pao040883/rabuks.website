@@ -16,14 +16,31 @@
             <h3 class="text-sm font-semibold leading-6 text-white">Produkt</h3>
             <ul role="list" class="mt-6 space-y-4">
               <li>
-                <a (click)="scrollToSection('features')" class="text-sm leading-6 text-gray-400 hover:text-white cursor-pointer">
+                <button
+                  type="button"
+                  (click)="scrollToSection('features')"
+                  class="text-sm leading-6 text-gray-400 hover:text-white"
+                >
                   Funktionen
-                </a>
+                </button>
               </li>
               <li>
-                <a (click)="scrollToSection('pricing')" class="text-sm leading-6 text-gray-400 hover:text-white cursor-pointer">
+                <button
+                  type="button"
+                  (click)="scrollToSection('screenshots')"
+                  class="text-sm leading-6 text-gray-400 hover:text-white"
+                >
+                  Einblicke
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  (click)="scrollToSection('pricing')"
+                  class="text-sm leading-6 text-gray-400 hover:text-white"
+                >
                   Preise
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -31,9 +48,13 @@
             <h3 class="text-sm font-semibold leading-6 text-white">Support</h3>
             <ul role="list" class="mt-6 space-y-4">
               <li>
-                <a (click)="scrollToSection('contact')" class="text-sm leading-6 text-gray-400 hover:text-white cursor-pointer">
+                <button
+                  type="button"
+                  (click)="scrollToSection('contact')"
+                  class="text-sm leading-6 text-gray-400 hover:text-white"
+                >
                   Kontakt
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -52,6 +73,18 @@
                   Datenschutz
                 </a>
               </li>
+              <li>
+                <button type="button" (click)="openCookieSettings()" class="text-sm leading-6 text-gray-400 hover:text-white">
+                  Cookie-Einstellungen
+                </button>
+              </li>
+              @if (cookieConsentService.hasAnalyticsConsent()) {
+                <li>
+                  <button type="button" (click)="withdrawAnalyticsConsent()" class="text-sm leading-6 text-gray-400 hover:text-white">
+                    Analytics widerrufen
+                  </button>
+                </li>
+              }
             </ul>
           </div>
         </div>
@@ -60,6 +93,15 @@
     <div class="mt-16 border-t border-gray-800 pt-8 sm:mt-20 lg:mt-24">
       <p class="text-xs leading-5 text-gray-400 text-center">
         &copy; {{ currentYear }} Rabuks. Alle Rechte vorbehalten.
+      </p>
+      <p class="mt-2 text-xs leading-5 text-gray-500 text-center">
+        Ein Produkt von
+        <a
+          href="https://offermanns.dev"
+          target="_blank"
+          rel="noopener"
+          class="text-gray-400 hover:text-white underline-offset-4 hover:underline"
+        >Patrick Offermanns</a>.
       </p>
     </div>
   </div>

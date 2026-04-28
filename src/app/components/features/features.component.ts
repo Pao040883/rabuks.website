@@ -18,32 +18,47 @@ export class FeaturesComponent {
     {
       icon: 'room',
       title: 'Raumbücher',
-      description: 'Alle relevanten Raumdaten an einem Ort erfassen – strukturiert und vollständig. Von Flächenangaben über Reinigungsarten bis zu Intervallen: Raumbücher, die als solide Basis für Ihre Kalkulationen dienen.'
-    },
-    {
-      icon: 'sync',
-      title: 'Synchronisation',
-      description: 'Pflegen Sie Stundenverrechnungssätze, Raumgruppen und Leistungswerte an einer Stelle. Änderungen werden automatisch in allen Raumbüchern übernommen – konsistent und effizient.'
+      description: 'Alle Räume eines Objekts strukturiert erfassen: Flächen, Bodenbeläge, Reinigungsarten und individuelle Wochenpläne. Auch unregelmäßige Rhythmen wie 14-tägig oder monatlich sind abbildbar.'
     },
     {
       icon: 'calculator',
-      title: 'Kalkulation',
-      description: 'Kalkulationsformeln sind zentral hinterlegt und vor unbeabsichtigten Änderungen geschützt. Professionelle Datenintegrität ohne manuelle Eingriffe in Formeln.'
+      title: 'Kalkulation nach DIN-Schema',
+      description: 'Stundenverrechnungssätze werden auf Basis Ihrer Lohngruppen, Sozialabgaben und betrieblichen Kostenpositionen berechnet. Wahlweise automatisch berechnet oder manuell überschrieben – immer mit klarer Rechenkette.'
     },
     {
-      icon: 'mobile',
-      title: 'Mobilität',
-      description: 'Funktioniert in allen modernen Browsern auf Desktop, Tablet und Smartphone. Progressive Web App (PWA) – installierbar, cloud-basiert für Zugriff von überall.'
+      icon: 'location',
+      title: 'Bundesland-genaue Frequenzen',
+      description: 'Reinigungsfrequenzen werden je Bundesland mit den dortigen Feiertagen hinterlegt. So stimmt die jährliche Einsatzzahl pro Raum, egal ob Sie in Bayern, Berlin oder Bremen kalkulieren.'
+    },
+    {
+      icon: 'users',
+      title: 'Kundenportal',
+      description: 'Ihre Auftraggeber sehen freigegebene Raumbücher selbst und können Änderungen mit Wirksamkeitsdatum vorschlagen – etwa neue Räume zum 1. des Monats. Sie prüfen, bestätigen oder verhandeln direkt im Portal.'
+    },
+    {
+      icon: 'map',
+      title: 'Gebäudeplan & Reviere',
+      description: 'Räume per Drag&Drop zu einem Etagenplan zusammensetzen – mit Logikprüfung, damit nichts übersehen wird. Reviere planen, als PDF für Ihre Reinigungskräfte exportieren und je Revier Stunden und Umsatz auswerten.'
+    },
+    {
+      icon: 'sync',
+      title: 'Eine Stelle, alle Bücher',
+      description: 'Stundenlöhne, Leistungswerte und Raumgruppen pflegen Sie zentral. Bei Tarifänderungen werden alle betroffenen Raumbücher automatisch neu durchgerechnet.'
     },
     {
       icon: 'export',
-      title: 'Import/Export',
-      description: 'Laden Sie Vorlagen herunter, exportieren Sie bestehende Raumbücher oder importieren Sie vorhandene Daten. Flexibler Datenaustausch für nahtlose Integration in Ihre Arbeitsabläufe.'
+      title: 'Import & Export',
+      description: 'Bestehende Excel-Tabellen lassen sich mit einer geführten Spalten-Zuordnung übernehmen. Raumbücher und Auswertungen exportieren Sie jederzeit zurück nach Excel – Sie behalten Ihre Daten in der Hand.'
+    },
+    {
+      icon: 'shield',
+      title: 'Sicherheit & Historie',
+      description: 'Zwei-Faktor-Authentifizierung, getrennte Daten je Mandant, lückenlose Änderungshistorie und Soft-Delete mit Wiederherstellung. Bei Rückfragen lässt sich nachvollziehen, wer wann was geändert hat.'
     },
     {
       icon: 'book',
-      title: 'Mandantenfähigkeit',
-      description: 'Ihre eigene Domain als geschützter Arbeitsbereich. Mandantenfähig für saubere Trennung, mit Berechtigungssystem zur vollständigen Zugriffskontrolle.'
+      title: 'Eigene Domain & Mandantenverwaltung',
+      description: 'Ihr eigener geschützter Arbeitsbereich unter eigener Adresse. Mehrere rechtliche Einheiten oder Niederlassungen lassen sich sauber trennen – mit getrennten Daten und gemeinsamem Login.'
     }
   ];
 }

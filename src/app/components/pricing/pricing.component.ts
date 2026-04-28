@@ -25,46 +25,12 @@ interface PriceCalculation {
 export class PricingComponent {
   roomCount: number = 0;
   calculations: PriceCalculation[] = [];
-  
-  // PREISMODELL VARIANTEN - Aktiviere eine der drei Varianten
-  currentModel: 'optimiert' | 'premium' | 'growth' | 'weitgestreut' | 'original' = 'original';
 
-  // VARIANTE 0: "ORIGINAL" - Deine ursprünglichen Preise
-  plansOriginal: PricingPlan[] = [
+  plans: PricingPlan[] = [
     { name: 'Small', price: '19,99', description: '0,10 €' },
     { name: 'Medium', price: '49,99', description: '0,05 €' },
     { name: 'Large', price: '89,99', description: '0,025 €' }
   ];
-
-  // VARIANTE 1: "OPTIMIERT" - Bessere Margen, klare Sprünge
-  plansOptimiert: PricingPlan[] = [
-    { name: 'Small', price: '29,99', description: '0,12 €' },
-    { name: 'Medium', price: '69,99', description: '0,06 €' },
-    { name: 'Large', price: '129,99', description: '0,035 €' }
-  ];
-
-  // VARIANTE 2: "PREMIUM" - Höhere Grundgebühren, attraktive Raumpreise
-  plansPremium: PricingPlan[] = [
-    { name: 'Small', price: '49,99', description: '0,09 €' },
-    { name: 'Medium', price: '99,99', description: '0,04 €' },
-    { name: 'Large', price: '179,99', description: '0,02 €' }
-  ];
-
-  // VARIANTE 3: "GROWTH" - Moderate Preise, schnelles Wachstum
-  plansGrowth: PricingPlan[] = [
-    { name: 'Small', price: '39,99', description: '0,10 €' },
-    { name: 'Medium', price: '79,99', description: '0,05 €' },
-    { name: 'Large', price: '149,99', description: '0,03 €' }
-  ];
-
-  // VARIANTE 4: "WEIT GESTREUT" - Break-even bei 5.000 und 15.000 Räumen
-  plansWeitGestreut: PricingPlan[] = [
-    { name: 'Small', price: '29,99', description: '0,10 €' },
-    { name: 'Medium', price: '229,99', description: '0,06 €' },
-    { name: 'Large', price: '529,99', description: '0,04 €' }
-  ];
-
-  plans: PricingPlan[] = this.plansOriginal;
 
   setupFee: string = '799,00';
 
@@ -81,30 +47,6 @@ export class PricingComponent {
   ];
 
   ngOnInit() {
-    // Wähle Preismodell
-    this.selectPricingModel(this.currentModel);
-    this.calculatePrices();
-  }
-
-  selectPricingModel(model: 'optimiert' | 'premium' | 'growth' | 'weitgestreut' | 'original') {
-    this.currentModel = model;
-    switch (model) {
-      case 'original':
-        this.plans = this.plansOriginal;
-        break;
-      case 'optimiert':
-        this.plans = this.plansOptimiert;
-        break;
-      case 'premium':
-        this.plans = this.plansPremium;
-        break;
-      case 'growth':
-        this.plans = this.plansGrowth;
-        break;
-      case 'weitgestreut':
-        this.plans = this.plansWeitGestreut;
-        break;
-    }
     this.calculatePrices();
   }
 

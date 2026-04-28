@@ -1,27 +1,30 @@
 @if (cookieService.showBanner()) {
-  <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg z-40">
+  <section class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg z-40" role="region" aria-labelledby="cookie-banner-heading" aria-describedby="cookie-banner-description" aria-live="polite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-6">
       <div class="flex-1">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+        <h3 id="cookie-banner-heading" class="text-lg font-bold text-gray-900 dark:text-white mb-2">
           Cookie-Einstellungen
         </h3>
-        <p class="text-sm text-gray-700 dark:text-gray-300">
+        <p id="cookie-banner-description" class="text-sm text-gray-700 dark:text-gray-300">
           Diese Website verwendet Cookies. Notwendige Cookies sind für die Grundfunktionen erforderlich. 
           Analytics-Cookies (Google Analytics) helfen uns, die Website zu verbessern. 
           Weitere Informationen findest du in unserer 
-          <a href="/datenschutz" class="text-primary-600 dark:text-primary-400 hover:underline">
+          <a routerLink="/datenschutz" class="text-primary-600 dark:text-primary-400 hover:underline">
             Datenschutzerklärung
           </a>.
         </p>
       </div>
-      <div class="flex gap-3 flex-shrink-0">
+      <div class="flex gap-3 shrink-0">
         <button
+          #cookiePrimaryActionButton
+          type="button"
           (click)="cookieService.acceptNecessary()"
           class="px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-all whitespace-nowrap font-semibold"
         >
-          Ablehnen
+          Nur notwendige Cookies
         </button>
         <button
+          type="button"
           (click)="cookieService.acceptAll()"
           class="px-4 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-semibold transition-all whitespace-nowrap"
         >
@@ -29,6 +32,6 @@
         </button>
       </div>
     </div>
-  </div>
+  </section>
 }
 

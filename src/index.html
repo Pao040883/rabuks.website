@@ -2,15 +2,122 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <title>Rabuks - Raumbuch & Kalkulation für die Gebäudereinigung</title>
+  <title>Rabuks – Raumbuch & Kalkulation für die Gebäudereinigung</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Professionelle Raumbuchverwaltung und Kalkulation für die Gebäudereinigung. Erfassen Sie Raumbücher digital, verwalten Sie Räume effizient und erstellen Sie präzise Kalkulationen.">
-  <meta name="keywords" content="Raumbuch, Gebäudereinigung, Kalkulation, Reinigungssoftware, Raumbuchverwaltung">
+  <meta name="description" content="Rabuks ist die Raumbuch- und Kalkulationsplattform für Gebäudereiniger: bundeslandgenaue Frequenzen, nachvollziehbare Stundenverrechnungssätze, Kundenportal mit Änderungen zum Stichtag und ein Gebäudeplan-Modul mit Revier-Auswertung.">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Patrick Offermanns">
+  <meta name="theme-color" content="#0F62FE">
+  <meta name="google-site-verification" content="SV3eKiA4ST1-UnIQQrYfkiCoQMAzGlXW4zs1NOKkX-E">
+  <link rel="canonical" href="https://rabuks.online/">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Rabuks">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rabuks – Raumbuch & Kalkulation für die Gebäudereinigung">
+  <meta property="og:description" content="Raumbücher kalkulieren, pflegen und mit Ihren Kunden teilen – inklusive Gebäudeplan- und Kundenportal-Modul.">
+  <meta property="og:url" content="https://rabuks.online/">
+  <meta property="og:image" content="https://rabuks.online/og-image.png">
+  <meta property="og:image:alt" content="Rabuks – Raumbuch & Kalkulation für die Gebäudereinigung">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rabuks – Raumbuch & Kalkulation für die Gebäudereinigung">
+  <meta name="twitter:description" content="Raumbücher kalkulieren, pflegen und mit Ihren Kunden teilen.">
+  <meta name="twitter:image" content="https://rabuks.online/og-image.png">
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://rabuks.online/#organization",
+        "name": "Rabuks",
+        "url": "https://rabuks.online/",
+        "logo": "https://rabuks.online/Logo_blau.png",
+        "email": "info@rabuks.online",
+        "telephone": "+49-152-33646614",
+        "founder": {
+          "@type": "Person",
+          "name": "Patrick Offermanns",
+          "url": "https://offermanns.dev"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Ohechaussee 52b",
+          "postalCode": "22848",
+          "addressLocality": "Norderstedt",
+          "addressCountry": "DE"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://rabuks.online/#website",
+        "url": "https://rabuks.online/",
+        "name": "Rabuks",
+        "inLanguage": "de-DE",
+        "publisher": { "@id": "https://rabuks.online/#organization" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Rabuks",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "Raumbuch- und Kalkulationsplattform für Gebäudereinigungsunternehmen mit bundeslandgenauen Reinigungsfrequenzen, Stundenverrechnungssatz-Berechnung, Kundenportal und Gebäudeplan-Modul.",
+        "url": "https://rabuks.online/",
+        "inLanguage": "de-DE",
+        "publisher": { "@id": "https://rabuks.online/#organization" },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Small",
+            "price": "19.99",
+            "priceCurrency": "EUR",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "19.99",
+              "priceCurrency": "EUR",
+              "billingDuration": "P1M"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Medium",
+            "price": "49.99",
+            "priceCurrency": "EUR",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "49.99",
+              "priceCurrency": "EUR",
+              "billingDuration": "P1M"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Large",
+            "price": "89.99",
+            "priceCurrency": "EUR",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "89.99",
+              "priceCurrency": "EUR",
+              "billingDuration": "P1M"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <app-root></app-root>

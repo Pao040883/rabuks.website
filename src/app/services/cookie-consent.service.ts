@@ -1,4 +1,4 @@
-import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, computed, signal, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { AnalyticsService } from './analytics.service';
 
@@ -16,8 +16,9 @@ export class CookieConsentService {
   private analyticsService = inject(AnalyticsService);
   private readonly STORAGE_KEY = 'cookie-consent';
 
-  showBanner = signal<boolean>(true);
+  showBanner = signal(true);
   consent = signal<CookieConsent | null>(null);
+  hasAnalyticsConsent = computed(() => this.consent()?.analytics === true);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -48,23 +49,41 @@ export class CookieConsentService {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(consent));
       this.consent.set(consent);
       this.showBanner.set(false);
-      
+
       if (consent.analytics) {
         this.enableAnalytics();
+      } else {
+        this.disableAnalytics();
       }
     }
+  }
+
+  reopenBanner(): void {
+    this.showBanner.set(true);
+  }
+
+  withdrawAnalyticsConsent(): void {
+    this.acceptNecessary();
   }
 
   private loadConsent(): void {
     if (isPlatformBrowser(this.platformId)) {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
-        const consent = JSON.parse(stored) as CookieConsent;
-        this.consent.set(consent);
-        this.showBanner.set(false);
-        
-        if (consent.analytics) {
-          this.enableAnalytics();
+        try {
+          const consent = JSON.parse(stored) as CookieConsent;
+          this.consent.set(consent);
+          this.showBanner.set(false);
+
+          if (consent.analytics) {
+            this.enableAnalytics();
+          } else {
+            this.disableAnalytics();
+          }
+        } catch {
+          localStorage.removeItem(this.STORAGE_KEY);
+          this.consent.set(null);
+          this.showBanner.set(true);
         }
       }
     }
@@ -72,9 +91,14 @@ export class CookieConsentService {
 
   private enableAnalytics(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Initialisiere Analytics erst jetzt (nach Zustimmung)
       this.analyticsService.initializeAnalytics();
       this.analyticsService.grantConsent();
+    }
+  }
+
+  private disableAnalytics(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.analyticsService.revokeConsent();
     }
   }
 }

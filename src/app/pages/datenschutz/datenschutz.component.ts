@@ -189,17 +189,24 @@ import { FooterComponent } from '../../components/footer/footer.component';
           <section class="mb-8">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">7. Kontaktformular und E-Mail-Versand</h2>
             <p class="text-gray-700 dark:text-gray-300 mb-4">
-              Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular 
-              inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall 
-              von Anschlussfragen bei uns gespeichert.
+              Wenn Sie uns über das Kontaktformular schreiben, verarbeiten wir die von Ihnen eingegebenen Angaben 
+              (Name, E-Mail-Adresse, optional Firma und Telefon sowie Ihre Nachricht) zur Bearbeitung Ihrer Anfrage 
+              und für mögliche Rückfragen.
             </p>
             <p class="text-gray-700 dark:text-gray-300 mb-4">
-              Die Verarbeitung der über das Kontaktformular eingegebenen Daten erfolgt ausschließlich auf unseren 
-              eigenen Servern. Es werden keine Daten an externe Dienstleister weitergegeben. Die Verarbeitung erfolgt 
-              auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags 
-              zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen 
-              beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns 
-              gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).
+              Die Übermittlung erfolgt an unser Kontakt-Endpunkt-Skript (PHP). Die Anfrage wird per E-Mail an 
+              info&#64;rabuks.online weitergeleitet. Zur technischen Absicherung gegen Missbrauch verarbeiten wir dabei 
+              außerdem die IP-Adresse und einen kurzen zeitbasierten Sperrvermerk (Cooldown pro IP).
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+              Welche konkreten Hosting- und E-Mail-Infrastrukturanbieter dabei eingesetzt werden, hängt von der 
+              jeweiligen Deployment-Umgebung ab.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+              Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der 
+              Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. 
+              In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven 
+              Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO).
             </p>
             <p class="text-gray-700 dark:text-gray-300 mb-4">
               Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur Löschung 

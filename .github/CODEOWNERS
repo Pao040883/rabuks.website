@@ -1,0 +1,13 @@
+# Governance surfaces
+/AGENTS.md @team-lead
+/.github/copilot-instructions.md @team-lead
+/.github/agents/ @team-lead
+/.github/instructions/ @team-lead
+/.github/prompts/ @team-lead
+/.github/skills/ @team-lead
+/.github/workflows/ @team-lead
+/scripts/hooks/ @team-lead
+
+# Project memory and templates
+/docs/ai/ @team-lead
+/tests/ @team-lead

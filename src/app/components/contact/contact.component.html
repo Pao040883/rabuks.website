@@ -22,11 +22,8 @@
       <div class="flex flex-col gap-10">
         <!-- Intro Text -->
         <div class="pb-6 border-b border-gray-200 dark:border-gray-700">
-          <p class="text-lg font-medium text-gray-900 dark:text-white mb-2">
-            Lassen Sie uns gemeinsam starten!
-          </p>
           <p class="text-base text-gray-600 dark:text-gray-300">
-            Wir nehmen uns Zeit für Ihre Fragen und zeigen Ihnen, wie Rabuks Ihre Raumbuchverwaltung vereinfacht. Sprechen Sie uns an – wir freuen uns auf Ihr Projekt.
+            Wir nehmen uns Zeit für Ihre Fragen und zeigen Ihnen, wie Rabuks Ihre Raumbuchverwaltung vereinfacht. Schreiben Sie uns oder rufen Sie an – wir melden uns zeitnah zurück.
           </p>
         </div>
 
@@ -74,85 +71,147 @@
 
       <!-- Right: Form -->
       <div class="rounded-2xl bg-white dark:bg-slate-700 p-10 ring-1 ring-gray-200 dark:ring-gray-600">
-        <div *ngIf="!submitted()">
-          <form (ngSubmit)="onSubmit()" #contactForm="ngForm" class="space-y-6">
-            <div>
-              <label for="name" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">Name</label>
-              <div class="mt-2.5">
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name"
-                  [(ngModel)]="formData().name"
-                  required
-                  class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                  placeholder="Max Mustermann">
-              </div>
-            </div>
-
-            <div>
-              <label for="email" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">E-Mail</label>
-              <div class="mt-2.5">
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email"
-                  [(ngModel)]="formData().email"
-                  required
-                  class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                  placeholder="max@firma.de">
-              </div>
-            </div>
-
-            <div>
-              <label for="company" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">Firma (optional)</label>
-              <div class="mt-2.5">
-                <input 
-                  type="text" 
-                  id="company" 
-                  name="company"
-                  [(ngModel)]="formData().company"
-                  class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                  placeholder="Firma GmbH">
-              </div>
-            </div>
-
-            <div>
-              <label for="message" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">Nachricht</label>
-              <div class="mt-2.5">
-                <textarea 
-                  id="message" 
-                  name="message"
-                  [(ngModel)]="formData().message"
-                  required
-                  rows="4"
-                  class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                  placeholder="Ihre Nachricht..."></textarea>
-              </div>
-            </div>
-
-            <div>
-              <button 
-                type="submit" 
-                [disabled]="!contactForm.valid || loading()"
-                class="block w-full rounded-lg bg-primary px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed">
-                <span *ngIf="!loading()">Nachricht senden</span>
-                <span *ngIf="loading()">Wird gesendet...</span>
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Success Message -->
-        <div *ngIf="submitted()" class="text-center">
-          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
-            <svg class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
+        @if (status() === 'success') {
+          <div class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-100" role="status" aria-live="polite">
+            Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen.
           </div>
-          <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Vielen Dank!</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Ihre Nachricht wurde erfolgreich versendet. Wir melden uns in Kürze bei Ihnen.</p>
-        </div>
+        }
+
+        @if (status() === 'error') {
+          <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-700 dark:bg-red-900/20 dark:text-red-100" role="alert" aria-live="assertive">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-6" novalidate>
+          <div>
+            <label for="name" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">Name</label>
+            <div class="mt-2.5">
+              <input 
+                type="text" 
+                id="name" 
+                formControlName="name"
+                autocomplete="name"
+                [attr.aria-invalid]="fieldInvalid('name')"
+                [attr.aria-describedby]="fieldInvalid('name') ? 'name-error' : null"
+                class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                placeholder="Max Mustermann">
+            </div>
+            @if (fieldInvalid('name')) {
+              <p id="name-error" class="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">{{ fieldErrorMessage('name') }}</p>
+            }
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">E-Mail</label>
+            <div class="mt-2.5">
+              <input 
+                type="email" 
+                id="email" 
+                formControlName="email"
+                autocomplete="email"
+                [attr.aria-invalid]="fieldInvalid('email')"
+                [attr.aria-describedby]="fieldInvalid('email') ? 'email-error' : null"
+                class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                placeholder="max@firma.de">
+            </div>
+            @if (fieldInvalid('email')) {
+              <p id="email-error" class="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">{{ fieldErrorMessage('email') }}</p>
+            }
+          </div>
+
+          <div>
+            <label for="company" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">Firma (optional)</label>
+            <div class="mt-2.5">
+              <input 
+                type="text" 
+                id="company" 
+                formControlName="company"
+                autocomplete="organization"
+                class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                placeholder="Firma GmbH">
+            </div>
+            @if (fieldInvalid('company')) {
+              <p class="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">{{ fieldErrorMessage('company') }}</p>
+            }
+          </div>
+
+          <div>
+            <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">Telefon (optional)</label>
+            <div class="mt-2.5">
+              <input
+                type="tel"
+                id="phone"
+                formControlName="phone"
+                autocomplete="tel"
+                [attr.aria-invalid]="fieldInvalid('phone')"
+                [attr.aria-describedby]="fieldInvalid('phone') ? 'phone-error' : null"
+                class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                placeholder="+49 ...">
+            </div>
+            @if (fieldInvalid('phone')) {
+              <p id="phone-error" class="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">{{ fieldErrorMessage('phone') }}</p>
+            }
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-semibold leading-6 text-gray-900 dark:text-white">Nachricht</label>
+            <div class="mt-2.5">
+              <textarea 
+                id="message" 
+                formControlName="message"
+                [attr.aria-invalid]="fieldInvalid('message')"
+                [attr.aria-describedby]="fieldInvalid('message') ? 'message-error' : null"
+                required
+                rows="4"
+                class="block w-full rounded-lg border-0 px-3.5 py-2 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 dark:bg-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                placeholder="Ihre Nachricht..."></textarea>
+            </div>
+            @if (fieldInvalid('message')) {
+              <p id="message-error" class="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">{{ fieldErrorMessage('message') }}</p>
+            }
+          </div>
+
+          <div class="sr-only" aria-hidden="true">
+            <label for="website">Website</label>
+            <input
+              type="text"
+              id="website"
+              formControlName="website"
+              autocomplete="off"
+              tabindex="-1">
+          </div>
+
+          <div>
+            <p class="mb-3 text-xs text-gray-600 dark:text-gray-300">
+              Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur Bearbeitung Ihrer Anfrage zu. Details finden Sie in unserer
+              <a href="/datenschutz" class="text-primary-600 dark:text-primary-400 hover:underline">Datenschutzerklärung</a>.
+            </p>
+            <button 
+              type="submit" 
+              [disabled]="contactForm.invalid || isLoading()"
+              [attr.aria-busy]="isLoading()"
+              class="block w-full rounded-lg bg-primary px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (!isLoading()) {
+                <span>Nachricht senden</span>
+              } @else {
+                <span>Wird gesendet...</span>
+              }
+            </button>
+          </div>
+        </form>
+
+        <p class="sr-only" role="status" aria-live="polite">
+          @if (isLoading()) {
+            Die Nachricht wird gesendet.
+          }
+          @if (status() === 'success') {
+            Nachricht erfolgreich versendet.
+          }
+          @if (status() === 'error') {
+            Fehler beim Senden der Nachricht.
+          }
+        </p>
       </div>
     </div>
   </div>
