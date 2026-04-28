@@ -68,7 +68,8 @@ export class SeoService {
 
   private getCanonicalUrl(): string {
     const path = this.router.url.split('?')[0].split('#')[0] || '/';
-    return new URL(path, this.document.location?.origin ?? this.document.baseURI).toString();
+    const normalizedPath = path === '/' ? '/' : (path.endsWith('/') ? path : `${path}/`);
+    return `https://rabuks.online${normalizedPath}`;
   }
 
   private setCanonicalLink(href: string): void {
